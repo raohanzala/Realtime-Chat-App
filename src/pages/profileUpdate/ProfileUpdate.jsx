@@ -71,9 +71,9 @@ const ProfileUpdate = () => {
         }
         if(docSnap.data().avatar){
           setPrevImage( docSnap.data().avatar)
-        }else{
-          navigate('/')
         }
+      }else{
+        navigate('/')
       }
     })
   },[])

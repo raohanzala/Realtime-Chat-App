@@ -1,4 +1,4 @@
-  import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
 import { db, auth } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
@@ -21,12 +21,18 @@ import { toast } from "react-toastify";
       try {
         const userRef = doc(db, 'users', uid)
           const userSnap = await getDoc(userRef)
+          console.log(userSnap)
           const userData = userSnap.data()
           setUserData(userData)
+
+
+          console.log(userData)
           if(userData.avatar && userData.name){
               navigate('/chat')
+              console.log('I am in the chat')
           }else{
             navigate('/profile')
+            console.log('I am in the profile')
           }
 
           await updateDoc(userRef, {

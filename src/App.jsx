@@ -21,6 +21,7 @@ function App() {
     onAuthStateChanged(auth, async(user)=> {
       if(user){
           navigate('/chat')
+          console.log(user)
           await loadUserData(user.uid)
       }else{
         navigate('/')
