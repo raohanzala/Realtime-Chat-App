@@ -74,3 +74,9 @@
   border-radius: 20px;
   cursor: pointer;
 }
+
+@media (ma-width : 900px) {
+  .rs{
+    display: none;
+  }
+}

@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
     const [messagesId, setMessagesId] = useState(null)
     const [messages, setMessages] = useState([])
     const [chatUser, setChatUser] = useState(null)
+    const [chatVisible, setChatVisible] = useState(false)
 
     const loadUserData= async (uid)=> {
       try {
@@ -27,12 +28,13 @@ import { toast } from "react-toastify";
 
 
           console.log(userData)
-          if(userData.avatar && userData.name){
-              navigate('/chat')
-              console.log('I am in the chat')
-          }else{
-            navigate('/profile')
-            console.log('I am in the profile')
+
+          if (userData?.avatar && userData?.name) {  // Safe check for avatar and name
+            navigate('/chat');
+            console.log('I am in the chat');
+          } else {
+            navigate('/profile');
+            console.log('I am in the profile');
           }
 
           await updateDoc(userRef, {
@@ -76,7 +78,7 @@ import { toast } from "react-toastify";
     })
 
     const value = {
-userData, setUserData, chatData, setChatData, loadUserData, messages, setMessages, messagesId, setMessagesId, chatUser, setChatUser
+userData, setUserData, chatData, setChatData, loadUserData, messages, setMessages, messagesId, setMessagesId, chatUser, setChatUser, chatVisible, setChatVisible
     }
 
     return (

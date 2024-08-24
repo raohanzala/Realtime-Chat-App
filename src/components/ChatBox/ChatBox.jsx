@@ -10,7 +10,7 @@ import upload from '../../lib/upload'
 export const ChatBox = () => {
 
 
-  const { userData, messagesId, chatUser, messages, setMessages } = useContext(AppContext)
+  const { userData, messagesId, chatUser, messages, setMessages, chatVisible, setChatVisible } = useContext(AppContext)
 
 
   const [input, setInput] = useState('')
@@ -130,11 +130,12 @@ export const ChatBox = () => {
 
 
   return chatUser ? (
-    <div className='chat-box'>
+    <div className={`chat-box ${chatVisible? '' : 'hidden'}`}>
       <div className="chat-user">
         <img src={chatUser.userData.avatar} alt="" />
-        <p>{chatUser.userData.name} <img className='dot' src={assets.green_dot} alt="" /></p>
+        <p>{chatUser.userData.name} {Date.now()-chatUser.userData.lastSeen <= 70000 ? <img src={assets.green_dot} className='dot' alt="" /> : null}</p>
         <img src={assets.help_icon} className='help' alt="" />
+        <img onClick={()=> setChatVisible(false)} src={assets.arrow_icon} className='arrow' alt="" />
       </div>
 
       <div className="chat-msg">
@@ -184,7 +185,7 @@ export const ChatBox = () => {
         <img onClick={sendMessage} src={assets.send_button} alt="" />
       </div>
     </div>
-  ) : <div className='chat-welcome'>
+  ) : <div className={`chat-welcome ${chatVisible? '' : 'hidden'}`}>
     <img src={assets.logo_icon} alt="" />
     <p>Chat anytime, anywhere</p>
   </div>

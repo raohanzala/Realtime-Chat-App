@@ -88,7 +88,7 @@ const ProfileUpdate = () => {
             <input onChange={(e)=>setImage(e.target.files[0])} type="file" id='avatar' accept='.png, .jpg, .jpeg' hidden />
             <img  src={image ? URL.createObjectURL(image) : assets.avatar_icon} alt="" />
             upload profile image
-          </label>
+          </label>          
 
           <input onChange={(e)=> setName(e.target.value)} value={name} type="text" placeholder='Your name' required />
           <textarea onChange={(e)=> setBio(e.target.bio) } value={bio} placeholder='Write profile bio' required></textarea>
