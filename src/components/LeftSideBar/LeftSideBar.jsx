@@ -14,6 +14,8 @@ export const LeftSideBar = () => {
   const [user, setUser] = useState(null)
   const [showSearch, setShowSearch] = useState(false)
 
+  console.log(chatData)
+
 
   const inputHandler = async (e) => {
     console.log(e.target.value)

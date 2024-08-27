@@ -20,9 +20,19 @@ import { toast } from "react-toastify";
 
     const loadUserData= async (uid)=> {
       try {
+
+
+        if (!uid) throw new Error("User ID is undefined");
+
+
+
         const userRef = doc(db, 'users', uid)
           const userSnap = await getDoc(userRef)
-          console.log(userSnap)
+
+          if (!userSnap.exists()) {
+            throw new Error("User document does not exist");
+          }
+
           const userData = userSnap.data()
           setUserData(userData)
 
@@ -57,6 +67,7 @@ import { toast } from "react-toastify";
 
     useEffect(()=>{
       if(userData){
+        console.log(userData)
         const chatRef = doc(db, 'chats', userData.id)
         const unSub = onSnapshot(chatRef, async(res)=>{
           const chatItems = res.data().chatsData
@@ -67,6 +78,15 @@ import { toast } from "react-toastify";
             const userData = userSnap.data()
             tempData.push({...item, userData})
           }
+          
+          // Check for duplicates and log the final data
+      const uniqueData = tempData.filter((value, index, self) =>
+        index === self.findIndex((t) => (
+          t.id === value.id // Replace 'id' with the unique property of your chat items
+        ))
+      );
+
+      console.log('Unique chat data:', uniqueData);
 
           setChatData(tempData.sort((a,b)=> b.updatedAt - a.updatedAt ))
         })
@@ -75,7 +95,7 @@ import { toast } from "react-toastify";
           unSub()
         }
       }
-    })
+    },[userData])
 
     const value = {
 userData, setUserData, chatData, setChatData, loadUserData, messages, setMessages, messagesId, setMessagesId, chatUser, setChatUser, chatVisible, setChatVisible
